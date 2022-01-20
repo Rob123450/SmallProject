@@ -30,6 +30,7 @@ function returnOK($obj = array())
 	sendResultInfoAsJson($obj);
 }
 
+// Shortcut to return with an error
 function returnError($err, $obj = array())
 {
 	$obj["ok"] = false;
