@@ -23,4 +23,18 @@ function sendResultInfoAsJson($obj)
 	echo json_encode($obj);
 }
 
+// Shortcut to return OK, indicating normal operation
+function returnOK($obj)
+{
+	$obj["ok"] = true;
+	sendResultInfoAsJson($obj);
+}
+
+function returnError($obj, $err)
+{
+	$obj["ok"] = false;
+	$obj["error"] = $err;
+	sendResultInfoAsJson($obj);
+}
+
 ?>
