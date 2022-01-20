@@ -5,7 +5,7 @@ function get_database_connection()
 {
 	$conn = new mysqli("localhost", "default", $_ENV["DEFAULT_MYSQL_PASSWD"], "COP4331");
 	
-	if($conn->connect_error) echo $conn->connect_error;
+	if($conn->connect_error) returnError($conn->connect_error);
 		
 	else return $conn;
 }
@@ -24,13 +24,13 @@ function sendResultInfoAsJson($obj)
 }
 
 // Shortcut to return OK, indicating normal operation
-function returnOK($obj)
+function returnOK($obj = array())
 {
 	$obj["ok"] = true;
 	sendResultInfoAsJson($obj);
 }
 
-function returnError($obj, $err)
+function returnError($err, $obj = array())
 {
 	$obj["ok"] = false;
 	$obj["error"] = $err;
