@@ -23,9 +23,19 @@
 
         $stmt->bind_result($ID,$firstName,$lastName,$addressOne,$city,$state,$country,$zipCode,$email,$phoneNumber);
 
+        $retValue = '[';
+
+        $temp = 0;
+
         while ($stmt->fetch()) {
-            returnWithInfo($ID,$firstName,$lastName,$addressOne,$city,$state,$country,$zipCode,$email,$phoneNumber);
+            $temp++;
+            if($temp != ($num_of_rows))
+                $retValue = $retValue . '{"ID":"' . $ID . '","firstName":"' . $firstName . '","lastName":"' . $lastName . '","address1":"' . $addressOne . '","city":"' . $city . '","state":"' . $state . '","country":"' . $country . '","zipCode":"' . $zipCode . '","email":"' . $email . '","phoneNumber":"' . $phoneNumber . '","error":""},';
+            else
+                $retValue = $retValue . '{"ID":"' . $ID . '","firstName":"' . $firstName . '","lastName":"' . $lastName . '","address1":"' . $addressOne . '","city":"' . $city . '","state":"' . $state . '","country":"' . $country . '","zipCode":"' . $zipCode . '","email":"' . $email . '","phoneNumber":"' . $phoneNumber . '","error":""}';
         }
+        $retValue = $retValue . ']';
+        sendResultInfoAsJson($retValue);
 
 		$stmt->close();
 		$conn->close();
@@ -43,9 +53,9 @@
         echo $obj;
     }
 
-	function returnWithInfo($ID,$firstName,$lastName,$addressOne,$city,$state,$country,$zipCode,$email,$phoneNumber)
+	function returnWithInfo($retValue,$ID,$firstName,$lastName,$addressOne,$city,$state,$country,$zipCode,$email,$phoneNumber)
 	{
-        $retValue = '{"ID":"' . $ID . '","first name":"' . $firstName . '","last name":"' . $lastName . '","address 1":"' . $addressOne . '","city":"' . $city . '","state":"' . $state . '","country":"' . $country . '","zip code":"' . $zipCode . '","email":"' . $email . '","phoneNumber":"' . $phoneNumber . '","error":""}';
+        $retValue = $retValue . '{"ID":"' . $ID . '","firstName":"' . $firstName . '","lastName":"' . $lastName . '","address1":"' . $addressOne . '","city":"' . $city . '","state":"' . $state . '","country":"' . $country . '","zipCode":"' . $zipCode . '","email":"' . $email . '","phoneNumber":"' . $phoneNumber . '","error":""}';
         sendResultInfoAsJson($retValue);
     }
 ?>

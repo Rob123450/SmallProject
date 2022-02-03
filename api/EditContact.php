@@ -47,7 +47,7 @@
 
 	function returnWithInfo($firstName,$lastName,$addressOne,$city,$state,$country,$zipCode,$email,$phoneNumber)
 	{
-        $retValue = '{"first name":' . $firstName . ',"last name":"' . $lastName . '","address 1":"' . $addressOne . '","city":"' . $city . '","state":"' . $state . '","country":"' . $country . '","zip code":"' . $zipCode . '","email":"' . $email . '","phoneNumber":"' . $phoneNumber . '","error":""}';
+        $retValue = '{"firstName":"' . $firstName . '","lastName":"' . $lastName . '","address1":"' . $addressOne . '","city":"' . $city . '","state":"' . $state . '","country":"' . $country . '","zipCode":"' . $zipCode . '","email":"' . $email . '","phoneNumber":"' . $phoneNumber . '","error":""}';
         sendResultInfoAsJson($retValue);
     }
 ?>

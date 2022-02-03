@@ -9,8 +9,10 @@
     }
     else
     {
-        $stmt = $conn->prepare("DELETE FROM Contact_Info WHERE UserID=? AND PhoneNumber=?");
-		$stmt->bind_param("is", $inData["UserID"], $inData["PhoneNumber"]);
+        //$stmt = $conn->prepare("DELETE FROM Contact_Info WHERE UserID=? AND PhoneNumber=?");
+		//$stmt->bind_param("is", $inData["UserID"], $inData["PhoneNumber"]);
+        $stmt = $conn->prepare("DELETE FROM Contact_Info WHERE ID=?");
+		$stmt->bind_param("i", $inData["ID"]);
 
 		if($stmt->execute())
 			echo "Successfully Deleted Contact";
