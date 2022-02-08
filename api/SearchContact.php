@@ -5,8 +5,7 @@
     $conn = new mysqli("localhost", "admin", "g53GkjwjZv", "COP4331");
 
     $userId = $inData["UserID"];
-    $fName = $inData["FirstName"] . '%';
-    $lName = $inData["LastName"] . '%';
+    $fullName = '%' . $inData["fullName"] . '%';
 
     if($conn->connect_error)
     {
@@ -14,8 +13,8 @@
     }
     else
     {
-        $stmt = $conn->prepare("SELECT ID,FirstName,LastName,AddressOne,City,State,Country,ZipCode,Email,PhoneNumber FROM Contact_Info WHERE UserID=? AND FirstName LIKE ? AND LastName LIKE ?");
-        $stmt->bind_param("iss", $userId, $fName, $lName);
+        $stmt = $conn->prepare("SELECT ID,FirstName,LastName,AddressOne,City,State,Country,ZipCode,Email,PhoneNumber FROM Contact_Info WHERE UserID=? AND CONCAT(FirstName, ' ', LastName) LIKE ?");
+        $stmt->bind_param("is", $userId, $fullName);
         $stmt->execute();
 
         $stmt->store_result();

@@ -11,12 +11,16 @@
     else
     {
         $stmt = $conn->prepare("INSERT INTO Users (FirstName,LastName,Email,Username,Password) VALUES (?,?,?,?,?)");
-	$stmt->bind_param("sssss", $inData["FirstName"], $inData["LastName"], $inData["Email"], $inData["Username"], $inData["Password"]);
-	$stmt->execute();
+	    $stmt->bind_param("sssss", $inData["FirstName"], $inData["LastName"], $inData["Email"], $inData["Username"], $inData["Password"]);
 
-	$stmt->close();
-	$conn->close();
-        returnWithError("");
+        if( $stmt->execute())
+			returnWithError("");
+		else
+			returnWithError("Username already exists");
+
+	    $stmt->close();
+	    $conn->close();
+
     }
 
     function getRequestInfo()
