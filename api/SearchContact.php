@@ -13,8 +13,10 @@
     }
     else
     {
-        $stmt = $conn->prepare("SELECT ID,FirstName,LastName,AddressOne,City,State,Country,ZipCode,Email,PhoneNumber FROM Contact_Info WHERE UserID=? AND CONCAT(FirstName, ' ', LastName) LIKE ?");
-        $stmt->bind_param("is", $userId, $fullName);
+        $stmt = $conn->prepare("SELECT ID,FirstName,LastName,AddressOne,City,State,Country,ZipCode,Email,PhoneNumber FROM Contact_Info WHERE UserID=? AND (CONCAT(FirstName, ' ', LastName) LIKE ? OR PhoneNumber LIKE ? OR Email LIKE ?) ORDER BY FirstName");
+        $stmt->bind_param("isss", $userId, $fullName, $fullName, $fullName);
+        // $stmt = $conn->prepare("SELECT ID,FirstName,LastName,AddressOne,City,State,Country,ZipCode,Email,PhoneNumber FROM Contact_Info WHERE (UserID=?) ORDER BY CONCAT(FirstName, ' ', LastName) LIKE ?, FirstName ASC");
+        // $stmt->bind_param("is", $userId, $fullName);
         $stmt->execute();
 
         $stmt->store_result();
